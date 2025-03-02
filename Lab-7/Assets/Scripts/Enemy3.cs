@@ -10,10 +10,12 @@ public class Enemy3 : MonoBehaviour
     private Transform[] locations;
     private int currentLocation = 0;
     private bool chasingPlayer = false;
+    Renderer render;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        render = GetComponent<Renderer>();
 
         if (patrolRoute == null || player == null)
         {
@@ -59,6 +61,8 @@ public class Enemy3 : MonoBehaviour
         {
             Debug.Log("Player detected - start chasing!");
             chasingPlayer = true;
+            render.material.color = Color.red;
+            
         }
     }
 
@@ -68,6 +72,7 @@ public class Enemy3 : MonoBehaviour
         {
             Debug.Log("Player out of range - resume patrol.");
             chasingPlayer = false;
+            render.material.color = Color.yellow;
             MoveToNextPatrolLocation();
         }
     }
